@@ -214,18 +214,18 @@ def convert_optimod_to_stereotool(input_name, base_sts_name, output_name):
 
     # multiband releaseを適用
     release_time = 2000
-    if (optimod_preset["MB RELEASE"] == 'Fast'):
+    if (optimod_preset["MB RELEASE"]["value1"] == 'Fast'):
         release_time = 200
-    elif (optimod_preset["MB RELEASE"] == 'MFast'):
+    elif (optimod_preset["MB RELEASE"]["value1"] == 'MFast'):
         release_time = 500
-    elif (optimod_preset["MB RELEASE"] == 'Med2'):
+    elif (optimod_preset["MB RELEASE"]["value1"] == 'Med2'):
         release_time = 1000
-    elif (optimod_preset["MB RELEASE"] == 'Med'):
+    elif (optimod_preset["MB RELEASE"]["value1"] == 'Med'):
         release_time = 2000
-    elif (optimod_preset["MB RELEASE"] == 'Slow2'):
+    elif (optimod_preset["MB RELEASE"]["value1"] == 'Slow2'):
+        release_time = 3000
+    elif (optimod_preset["MB RELEASE"]["value1"] == 'Slow'):
         release_time = 4000
-    elif (optimod_preset["MB RELEASE"] == 'Slow'):
-        release_time = 8000
     for band_num in range(1, 6):
         conf = "B" + str(band_num) + " RELEASE"
         stereotool_preset["Multiband Compressor 3"]["Release (time to rise 10 dB in ms) band " + str(band_num)] = opti_rel_ms_to_st_ms(
@@ -313,4 +313,4 @@ def convert_optimod_to_stereotool(input_name, base_sts_name, output_name):
 
 
 convert_optimod_to_stereotool(
-    "presets/WMA MUSIC.orbf", "opti.sts", "WMA MUSIC.sts")
+    "presets/ROCK-SOFT.orbf", "opti.sts", "ROCK-SOFT.sts")

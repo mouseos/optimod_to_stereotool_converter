@@ -183,7 +183,7 @@ def read_data_from_file(filename):
 
 
 def write_data_to_file(filename, data_string):
-    with open(filename, 'w') as file:
+    with open(filename, 'w', encoding='utf-8') as file:
         file.write(data_string)
 
 
@@ -211,6 +211,31 @@ def convert_optimod_to_stereotool(input_name, base_sts_name, output_name):
         conf = "B" + str(band_num) + " OUTPUT MIX"
         stereotool_preset["Multiband Compressor 3"]["Output Level band " + str(band_num)] = db_to_linear_gain(
             optimod_preset[conf]["value1"]/100)
+
+    # multiband releaseを適用
+    release_time = 2000
+    if (optimod_preset["MB RELEASE"] == 'Fast'):
+        release_time = 200
+    elif (optimod_preset["MB RELEASE"] == 'MFast'):
+        release_time = 500
+    elif (optimod_preset["MB RELEASE"] == 'Med2'):
+        release_time = 1000
+    elif (optimod_preset["MB RELEASE"] == 'Med'):
+        release_time = 2000
+    elif (optimod_preset["MB RELEASE"] == 'Slow2'):
+        release_time = 4000
+    elif (optimod_preset["MB RELEASE"] == 'Slow'):
+        release_time = 8000
+    for band_num in range(1, 6):
+        conf = "B" + str(band_num) + " RELEASE"
+        stereotool_preset["Multiband Compressor 3"]["Release (time to rise 10 dB in ms) band " + str(band_num)] = opti_rel_ms_to_st_ms(
+            release_time)
+
+    # couplingを適用
+    stereotool_preset["Multiband Compressor 3"]["Band 2 coupling to band 3"] = optimod_preset["BAND 23 COUPL"]["value1"]/100
+    stereotool_preset["Multiband Compressor 3"]["Band 3 coupling to band 2"] = optimod_preset["BAND 32 COUPL"]["value1"]/100
+    stereotool_preset["Multiband Compressor 3"]["Band 3 coupling to band 4"] = optimod_preset["BAND 34 COUPL"]["value1"]/100
+    stereotool_preset["Multiband Compressor 3"]["Band 4 coupling to band 5"] = optimod_preset["BAND 45 COUPL"]["value1"]/100
     # bririllianceを適用
     stereotool_preset["Multiband Compressor 3"]["Density drive band 5"] = db_to_linear_gain(
         optimod_preset["BRILLIANCE"]["value1"]/100)
@@ -288,4 +313,4 @@ def convert_optimod_to_stereotool(input_name, base_sts_name, output_name):
 
 
 convert_optimod_to_stereotool(
-    "presets/LOUD-FAT.orbf", "opti.sts", "LOUD-FAT.sts")
+    "presets/WMA MUSIC.orbf", "opti.sts", "WMA MUSIC.sts")

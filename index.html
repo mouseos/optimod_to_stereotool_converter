@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>orbf sts コンバーター</title>
+    <!-- Materialize CSS を追加 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Material Icons を追加 -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+	<!-- Materialize のナビゲーションバーを追加 -->
+	<nav>
+		<div class="nav-wrapper">
+			<a href="#" class="brand-logo">orbf sts コンバーター</a>
+		</div>
+	</nav>
+    <!-- レスポンシブ対応のために Materialize の container クラスを使用 -->
+    <div class="container">
+        <p>optimod 8300以降の5バンド機種のプリセットファイルをstereotool プリセットファイルに変換することができます。完全に同じ音にはなりませんが近い音にすることが可能です。</p>
+        ファイルを選択してアップロードしてください。
+        <!-- Materialize の row と col s12 クラスを使用してレイアウトを改善 -->
+        <div class="row">
+            <form class="col s12" action="convert.cgi" method="post" enctype="multipart/form-data">
+                <div class="file-field input-field">
+                    <div class="btn">
+                        <span>ファイルを選択</span>
+                        <input type="file" name="file" id="file">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text">
+                    </div>
+                </div>
+                <button class="btn waves-effect waves-light" type="submit">アップロード</button>
+            </form>
+        </div>
+    </div>
+    <!-- Materialize JavaScript を追加 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

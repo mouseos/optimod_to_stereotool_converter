@@ -1,4 +1,3 @@
-import pprint
 import re
 import math
 # oct qの変換
@@ -232,13 +231,17 @@ def convert_optimod_to_stereotool(input_name, base_sts_name, output_name):
             release_time)
 
     # couplingを適用
-    stereotool_preset["Multiband Compressor 3"]["Band 2 coupling to band 3"] = optimod_preset["BAND 23 COUPL"]["value1"]/100
-    stereotool_preset["Multiband Compressor 3"]["Band 3 coupling to band 2"] = optimod_preset["BAND 32 COUPL"]["value1"]/100
-    stereotool_preset["Multiband Compressor 3"]["Band 3 coupling to band 4"] = optimod_preset["BAND 34 COUPL"]["value1"]/100
-    stereotool_preset["Multiband Compressor 3"]["Band 4 coupling to band 5"] = optimod_preset["BAND 45 COUPL"]["value1"]/100
+    stereotool_preset["Multiband Compressor 3"]["Band 3 coupling to band 2"] = optimod_preset["BAND 23 COUPL"]["value1"]/100
+    stereotool_preset["Multiband Compressor 3"]["Band 2 coupling to band 3"] = optimod_preset["BAND 32 COUPL"]["value1"]/100
+    stereotool_preset["Multiband Compressor 3"]["Band 4 coupling to band 3"] = optimod_preset["BAND 34 COUPL"]["value1"]/100
+    stereotool_preset["Multiband Compressor 3"]["Band 5 coupling to band 4"] = optimod_preset["BAND 45 COUPL"]["value1"]/100
     # bririllianceを適用
     stereotool_preset["Multiband Compressor 3"]["Density drive band 5"] = db_to_linear_gain(
         optimod_preset["BRILLIANCE"]["value1"]/100)
+
+    # driveを適用
+    stereotool_preset["Multiband Compressor 3"]["Drive"] = db_to_linear_gain(
+        optimod_preset["MB DRIVE"]["value1"])
 
     # AGCの設定を適用
     # attack
@@ -312,5 +315,5 @@ def convert_optimod_to_stereotool(input_name, base_sts_name, output_name):
     write_data_to_file(output_name, dict_to_stereotool(stereotool_preset))
 
 
-convert_optimod_to_stereotool(
-    "presets/ROCK-SOFT.orbf", "opti.sts", "ROCK-SOFT.sts")
+"""convert_optimod_to_stereotool(
+    "presets/ROCK-SOFT.orbf", "opti.sts", "ROCK-SOFT.sts")"""
